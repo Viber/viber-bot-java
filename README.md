@@ -27,7 +27,7 @@ public void botExample() {
 You can chose to use any webserver or framework you like. All you need to do is call the API with - 
 ```java
 bot.incoming(Request.fromJsonString("...")); // or
-bot.incoming(Request.fromInputStream("..."));
+bot.incoming(Request.fromInputStream(inputStream));
 ```
 
 ### Should I be concerned with synchronizing my webserver threads? Is this library thread-safe?
@@ -40,6 +40,7 @@ All I/O calls are directly executed on the same thread they were initially calle
 Yes. You can pass an environment variable to control the I/O thread pool:
 
 `com.viber.bot.executor.strategy=[DIRECT|THREAD]` (default is DIRECT)
+
 `com.viber.bot.executor.threads=N` (default is `getRuntime().availableProcessors()`)
 
 * Note: This will not change the way you use the library. You still don't have to synchronize anything. 
