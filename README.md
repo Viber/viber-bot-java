@@ -37,7 +37,7 @@ All calls to `ViberBot#incoming()` go through a `BlockingQueue`, and ordering is
 All I/O calls are directly executed on the same thread they were initially called on.
 
 ### Can I make I/O calls asynchronous and still retain thread-safety for my bot?
-Yes. You can pass an environment variable to control the I/O thread pool:
+Yes. You can pass an system property to control the I/O thread pool:
 
 `com.viber.bot.executor.strategy=[DIRECT|THREAD]` (default is DIRECT)
 
