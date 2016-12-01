@@ -1,0 +1,6 @@
+com.viber.bot
+com.viber.bot.api
+com.viber.bot.event.callback
+com.viber.bot.event.incoming
+com.viber.bot.message
+com.viber.bot.profile

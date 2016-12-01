@@ -1,0 +1,114 @@
+group = projectGroup
+version = projectVersion
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+sourceCompatibility = projectSourceCompatibility
+
+project.ext {
+    slf4jVersion = '1.7.21'
+    jacksonVersion = '2.8.5'
+    findbugsVersion = '3.0.1'
+    guavaVersion = '20.0'
+    okhttp3Version = '3.4.2'
+}
+
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: okhttp3Version
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+
+    compile group: 'com.google.code.findbugs', name: 'jsr305', version: findbugsVersion
+    compile group: 'com.google.guava', name: 'guava', version: guavaVersion
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+    testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: '1.7.0'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java'
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.13'
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Viber Bot'
+                packaging 'jar'
+                artifactId 'viber-bot'
+                description 'Use this library to communicate with the Viber API to develop a bot for https://developers.viber.com/.'
+                url 'https://developers.viber.com/'
+
+                scm {
+                    url 'https://github.com/Viber/viber-bot-java'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'idan'
+                        name 'Idan Harel'
+                        email 'idanh@viber.com'
+                    }
+                }
+            }
+        }
+    }
+}
