@@ -32,11 +32,13 @@ bot.incoming(Request.fromInputStream("..."));
 
 ### Should I be concerned with synchronizing my webserver threads? Is this library thread-safe?
 The Viber bot library is *thread-safe* and highly concurrent. You do not have to worry about synchronizing anything.
+
 All calls to `ViberBot#incoming()` go through a `BlockingQueue`, and ordering is retained.
 All I/O calls are directly executed on the same thread they were initially called on.
 
 ### Can I make I/O calls asynchronous and still retain thread-safety for my bot?
 Yes. You can pass an environment variable to control the I/O thread pool:
+
 `com.viber.bot.executor.strategy=[DIRECT|THREAD]` (default is DIRECT)
 `com.viber.bot.executor.threads=N` (default is `getRuntime().availableProcessors()`)
 
