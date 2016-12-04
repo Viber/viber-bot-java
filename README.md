@@ -10,6 +10,23 @@ This library is released under the terms of the Apache 2.0 license. See [License
 * [Get your Viber Public Account authentication token](https://developers.viber.com/customer/en/portal/articles/2554141-create-a-public-account?b_id=15145).
 * SSL Certification - You'll need a trusted (ca.pem) certificate, not self-signed. You can find one at [Let's Encrypt](https://letsencrypt.org/) or buy one.
 
+## Installation
+This library is released on [maven central](http://central.maven.org/maven2/com/viber/viber-bot/).
+
+### Gradle
+```
+compile group: 'com.viber', name: 'viber-bot', version: '1.0.0'
+```
+
+### Maven
+```
+<dependency>
+    <groupId>com.viber</groupId>
+    <artifactId>viber-bot</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
 ## Documentation
 ### JavaDocs
 All public APIs are documented with JavaDocs. [The JavaDocs can be found here](docs/index.html)
@@ -37,7 +54,7 @@ All calls to `ViberBot#incoming()` go through a `BlockingQueue`, and ordering is
 All I/O calls are directly executed on the same thread they were initially called on.
 
 ### Can I make I/O calls asynchronous and still retain thread-safety for my bot?
-Yes. You can pass an system property to control the I/O thread pool:
+Yes. You can pass a system property to control the I/O thread pool:
 
 `com.viber.bot.executor.strategy=[DIRECT|THREAD]` (default is DIRECT)
 
