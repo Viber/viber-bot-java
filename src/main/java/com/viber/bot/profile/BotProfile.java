@@ -17,6 +17,10 @@ public class BotProfile {
         this.avatar = avatar;
     }
 
+    public BotProfile(final @Nonnull String name) {
+        this(name, null);
+    }
+
     public String getName() {
         return name;
     }

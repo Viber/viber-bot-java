@@ -84,14 +84,15 @@ uploadArchives {
             }
 
             pom.project {
-                name 'Viber Bot'
+                name projectName
                 packaging 'jar'
-                artifactId 'viber-bot'
+                artifactId projectName
                 description 'Use this library to communicate with the Viber API to develop a bot for https://developers.viber.com/.'
                 url 'https://developers.viber.com/'
 
                 scm {
-                    url 'https://github.com/Viber/viber-bot-java'
+                    connection 'scm:git:git://github.com/Viber/viber-bot-java.git'
+                    url 'https://github.com/Viber/viber-bot-java/tree/master'
                 }
 
                 licenses {
@@ -106,6 +107,8 @@ uploadArchives {
                         id 'idan'
                         name 'Idan Harel'
                         email 'idanh@viber.com'
+                        organization 'Viber'
+                        organizationUrl 'http://viber.com'
                     }
                 }
             }

@@ -14,7 +14,7 @@ public class ViberSignatureValidator {
     private static final Logger logger = LoggerFactory.getLogger(ViberSignatureValidator.class);
     private final String secret;
 
-    ViberSignatureValidator(final @Nonnull String secret) {
+    public ViberSignatureValidator(final @Nonnull String secret) {
         this.secret = checkNotEmpty(secret);
     }
 

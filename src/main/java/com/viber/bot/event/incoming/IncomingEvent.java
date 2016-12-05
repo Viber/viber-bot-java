@@ -19,7 +19,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
         @JsonSubTypes.Type(value = IncomingSeenEvent.class, name = "seen"),
         @JsonSubTypes.Type(value = IncomingDeliveredEvent.class, name = "delivered"),
         @JsonSubTypes.Type(value = IncomingSubscribedEvent.class, name = "subscribed"),
-        @JsonSubTypes.Type(value = IncomingUnsubscribeEvent.class, name = "unsubscribed")
+        @JsonSubTypes.Type(value = IncomingUnsubscribeEvent.class, name = "unsubscribed"),
+        @JsonSubTypes.Type(value = IncomingConversationStartedEvent.class, name = "conversation_started"),
+        @JsonSubTypes.Type(value = IncomingErrorEvent.class, name = "failed")
 })
 public class IncomingEvent {
 

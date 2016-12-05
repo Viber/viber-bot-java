@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  ssl:
+    enabled: true
+    key-alias: test
+    key-store: "path/to/cert.jks"
+    key-store-password: "password"
+
+application.viber-bot:
+  auth-token: "YOUR_VIBER_AUTH_TOKEN"
+  webhook-url: "https://YOUR_WEBHOOK_URL:8080"
+  name: "EchoBot"
+  avatar: "http://example.com/avatar.jpg"
+
+logging.level.com.viber: DEBUG
