@@ -15,7 +15,7 @@ This library is released on [maven central](http://central.maven.org/maven2/com/
 
 ### Gradle
 ```
-compile group: 'com.viber', name: 'viber-bot', version: '1.0.4'
+compile group: 'com.viber', name: 'viber-bot', version: '1.0.5'
 ```
 
 ### Maven
@@ -23,7 +23,7 @@ compile group: 'com.viber', name: 'viber-bot', version: '1.0.4'
 <dependency>
     <groupId>com.viber</groupId>
     <artifactId>viber-bot</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 

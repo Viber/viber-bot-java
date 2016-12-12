@@ -18,6 +18,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -75,7 +76,21 @@ public class ViberBot {
      * @see ApiException
      */
     public ListenableFuture<ApiResponse> setWebhook(final @Nonnull String url) {
-        return client.setWebhook(url, Lists.newArrayList(Event.values()));
+        return setWebhook(url, Lists.newArrayList(Event.values()));
+    }
+
+    /**
+     * Sends an set webhook request to Viber
+     * The url must start with HTTPS, and must have valid ssl certificate.
+     *
+     * @param url              the url to register as webhook
+     * @param registerToEvents events to register to
+     * @return a future with {@link ApiResponse} that may throw {@link ApiException}.
+     * @see ApiResponse
+     * @see ApiException
+     */
+    public ListenableFuture<ApiResponse> setWebhook(final @Nonnull String url, final @Nonnull List<Event> registerToEvents) {
+        return client.setWebhook(url, registerToEvents);
     }
 
     /**

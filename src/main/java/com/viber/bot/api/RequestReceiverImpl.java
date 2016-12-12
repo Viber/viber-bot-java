@@ -29,7 +29,7 @@ class RequestReceiverImpl implements RequestReceiver {
     private final ViberBot bot;
 
     RequestReceiverImpl(final @Nonnull ViberBot bot, final @Nonnull EventEmitter eventEmitter) {
-        this.bot = bot;
+        this.bot = checkNotNull(bot);
         this.eventEmitter = checkNotNull(eventEmitter);
     }
 

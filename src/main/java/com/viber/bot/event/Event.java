@@ -12,7 +12,7 @@ public enum Event {
     SUBSCRIBED("subscribed"),
     UNSUBSCRIBED("unsubscribed"),
 
-    CONVERSATION_STARTED("conversation_opened"),
+    CONVERSATION_STARTED("conversation_started"),
     WEBHOOK("webhook"),
 
     ERROR("failed");
