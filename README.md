@@ -45,19 +45,19 @@ public void botExample() {
     ViberBot bot = new ViberBot(new BotProfile("SampleBot", "http://viber.com/avatar.jpg"), "YOUR_AUTH_TOKEN_HERE");
     bot.onMessageReceived((event, message, response) -> response.send(message));
 
-    // somewhere else in your webserver of choise:
+    // somewhere else in your web server of choice:
     bot.incoming(Request.fromJsonString("..."));
 }
 ```
 
-You can chose to use any webserver or framework you like. All you need to do is call the API with -
+You can chose to use any web server or framework you like. All you need to do is call the API with -
 
 ```java
 bot.incoming(Request.fromJsonString("...")); // or
 bot.incoming(Request.fromInputStream(inputStream));
 ```
 
-### Should I be concerned with synchronizing my webserver threads? Is this library thread-safe?
+### Should I be concerned with synchronizing my web server threads? Is this library thread-safe?
 The Viber bot library is *thread-safe* and highly concurrent. You do not have to worry about synchronizing anything.
 
 All calls to `ViberBot#incoming()` go through a `BlockingQueue`, and ordering is retained.
