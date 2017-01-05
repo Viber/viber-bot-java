@@ -1,6 +1,7 @@
 package com.viber.bot.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -29,7 +30,10 @@ import static com.viber.bot.Preconditions.checkNotEmpty;
 @ThreadSafe
 class ViberClient {
 
-    private static final String VIBER_AUTH_TOKEN_HEADER = "X-Viber-Auth-Token";
+    static final String VIBER_AUTH_TOKEN_HEADER = "X-Viber-Auth-Token";
+    static final String USER_AGENT_HEADER_FIELD = "User-Agent";
+    static final String USER_AGENT_HEADER_VALUE = "ViberBot-Java/";
+
     private static final String STATUS = "status";
     private static final int MAX_GET_ONLINE_IDS = 100;
 
@@ -42,10 +46,12 @@ class ViberClient {
 
     private final String authToken;
     private final String apiUrl;
+    private final String userAgent;
 
     ViberClient(final @Nonnull String apiUrl, final @Nonnull String authToken) {
         this.apiUrl = checkNotEmpty(apiUrl);
         this.authToken = checkNotEmpty(authToken);
+        this.userAgent = String.format("%s%s", USER_AGENT_HEADER_VALUE, fetchUserAgentVersion());
     }
 
     ListenableFuture<ApiResponse> setWebhook(final @Nullable String url, final @Nonnull Collection<Event> events) {
@@ -78,6 +84,28 @@ class ViberClient {
         }});
     }
 
+    @VisibleForTesting
+    String fetchUserAgentVersion() {
+        Properties properties = new Properties();
+        try {
+            properties.load(getClass().getClassLoader().getResourceAsStream("./version.properties"));
+            return properties.getProperty("version");
+        } catch (Exception e) {
+            logger.error("Could not fetch user agent", e);
+            return "unknown";
+        }
+    }
+
+    @VisibleForTesting
+    Request createRequest(@Nonnull Endpoint endpoint, RequestBody body) {
+        return new Request.Builder()
+                .url(String.format("%s%s", apiUrl, endpoint.uri))
+                .header(VIBER_AUTH_TOKEN_HEADER, authToken)
+                .header(USER_AGENT_HEADER_FIELD, userAgent)
+                .post(body)
+                .build();
+    }
+
     private ListenableFuture<ApiResponse> sendRequest(final @Nonnull Endpoint endpoint, final @Nonnull Map<String, Object> parameters) {
         parameters.put("auth_token", authToken);
 
@@ -89,11 +117,7 @@ class ViberClient {
         }
 
         final RequestBody body = RequestBody.create(JSON, json);
-        final Request request = new Request.Builder()
-                .url(String.format("%s%s", apiUrl, endpoint.uri))
-                .header(VIBER_AUTH_TOKEN_HEADER, authToken)
-                .post(body)
-                .build();
+        final Request request = createRequest(endpoint, body);
 
         logger.debug("Sending request {}: {}", request, json);
 
@@ -112,7 +136,8 @@ class ViberClient {
         return Integer.parseInt(responseMap.get(STATUS).toString()) != 0;
     }
 
-    private enum Endpoint {
+    @VisibleForTesting
+    enum Endpoint {
         SET_WEBHOOK("/set_webhook"),
         SEND_MESSAGE("/send_message"),
         GET_ACCOUNT_INFO("/get_account_info"),

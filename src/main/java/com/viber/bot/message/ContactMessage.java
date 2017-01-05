@@ -36,6 +36,7 @@ public class ContactMessage extends Message {
             put("contact", new HashMap<String, Object>() {{
                 put("name", getContact().getName());
                 put("phone_number", getContact().getPhoneNumber());
+                put("avatar", getContact().getAvatar());
             }});
         }};
     }

@@ -16,7 +16,7 @@ This library is released on [maven central](http://central.maven.org/maven2/com/
 ### Gradle
 
 ```
-compile group: 'com.viber', name: 'viber-bot', version: '1.0.5'
+compile group: 'com.viber', name: 'viber-bot', version: '1.0.6'
 ```
 
 ### Maven
@@ -25,7 +25,7 @@ compile group: 'com.viber', name: 'viber-bot', version: '1.0.5'
 <dependency>
     <groupId>com.viber</groupId>
     <artifactId>viber-bot</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 </dependency>
 ```
 
@@ -35,8 +35,8 @@ All public APIs are documented with JavaDocs which can be found in the [GitHub r
 
 ### Sample projects
 We've created two sample projects to help you get started.
-- [Spring-Boot Sample](https://github.com/Viber/viber-bot-java/tree/master/spring-boot-sample) using [spring-boot-starter-web](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-starters/spring-boot-starter-web) package,
-- and [NanoHTTPd Sample](https://github.com/Viber/viber-bot-java/tree/master/nano-httpd-sample/) with a tiny embeddable http server, called [NanoHTTPd](https://github.com/NanoHttpd/nanohttpd).
+-- [Spring-Boot Sample](https://github.com/Viber/viber-bot-java/tree/master/spring-boot-sample) using [spring-boot-starter-web](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-starters/spring-boot-starter-web) package,
+-- and [NanoHTTPd Sample](https://github.com/Viber/viber-bot-java/tree/master/nano-httpd-sample/) with a tiny embeddable http server, called [NanoHTTPd](https://github.com/NanoHttpd/nanohttpd).
 
 ### A simple overview
 
@@ -45,7 +45,7 @@ public void botExample() {
     ViberBot bot = new ViberBot(new BotProfile("SampleBot", "http://viber.com/avatar.jpg"), "YOUR_AUTH_TOKEN_HERE");
     bot.onMessageReceived((event, message, response) -> response.send(message));
 
-    // somewhere else in your web server of choice:
+    // somewhere else in your web server of choise:
     bot.incoming(Request.fromJsonString("..."));
 }
 ```
@@ -80,6 +80,3 @@ public void botTextRouterExample() {
     bot.onTextMessage("(hi|hello)", (event, message, response) -> response.send("Hi " + event.getSender().getName()));
 }
 ```
-
-## Community
-Join the conversation on **[Gitter] (https://gitter.im/viber/bot-java)**.

@@ -2,8 +2,10 @@ package com.viber.bot.message;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.Strings;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import static com.viber.bot.Preconditions.checkNotEmpty;
@@ -11,39 +13,51 @@ import static com.viber.bot.Preconditions.checkNotEmpty;
 @Immutable
 public class Contact {
 
-    private final String name;
-    private final String phoneNumber;
+	private final String name;
+	private final String phoneNumber;
 
-    @JsonCreator
-    public Contact(final @JsonProperty("name") @Nonnull String contactName,
-                   final @JsonProperty("phone_number") @Nonnull String contactPhoneNumber) {
-        this.name = checkNotEmpty(contactName);
-        this.phoneNumber = checkNotEmpty(contactPhoneNumber);
-    }
+	@Nullable
+	private final String avatar;
 
-    public String getName() {
-        return name;
-    }
+	@JsonCreator
+	public Contact(final @JsonProperty("name") @Nonnull String contactName,
+			final @JsonProperty("phone_number") @Nonnull String contactPhoneNumber,
+			final @JsonProperty("phone_number") @Nullable String avatar) {
+		this.name = checkNotEmpty(contactName);
+		this.phoneNumber = checkNotEmpty(contactPhoneNumber);
+		this.avatar = Strings.emptyToNull(avatar);
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public String getName() {
+		return name;
+	}
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-        final Contact contact = (Contact) o;
+	@Nullable
+	public String getAvatar() {
+		return avatar;
+	}
 
-        if (name != null ? !name.equals(contact.name) : contact.name != null) return false;
-        return phoneNumber != null ? phoneNumber.equals(contact.phoneNumber) : contact.phoneNumber == null;
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 
-    @Override
-    public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
-        return result;
-    }
+		Contact contact = (Contact) o;
+
+		if (name != null ? !name.equals(contact.name) : contact.name != null) return false;
+		if (phoneNumber != null ? !phoneNumber.equals(contact.phoneNumber) : contact.phoneNumber != null) return false;
+		return avatar != null ? avatar.equals(contact.avatar) : contact.avatar == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = name != null ? name.hashCode() : 0;
+		result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+		result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
+		return result;
+	}
 }

@@ -16,6 +16,7 @@ import com.viber.bot.profile.UserProfile;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
+
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
@@ -155,6 +156,18 @@ public class ViberBot {
      */
     public ListenableFuture<ApiResponse> getUserDetails(final @Nonnull String userId) {
         return client.getUserDetails(userId);
+    }
+
+    /**
+     * Returns the online status for Viber users.
+     *
+     * @param userIds a collection of strings representing the user ids, can be obtained from {@link UserProfile#getId}
+     * @return a future with {@link ApiResponse} that may throw {@link ApiException}.
+     * @see ApiResponse
+     * @see ApiException
+     */
+    public ListenableFuture<ApiResponse> getOnlineStatus(final @Nonnull Collection<String> userIds) {
+        return client.getOnlineStatus(userIds);
     }
 
     /**
