@@ -80,3 +80,6 @@ public void botTextRouterExample() {
     bot.onTextMessage("(hi|hello)", (event, message, response) -> response.send("Hi " + event.getSender().getName()));
 }
 ```
+
+## Community		
+Join the conversation on **[Gitter] (https://gitter.im/viber/bot-java)**.
