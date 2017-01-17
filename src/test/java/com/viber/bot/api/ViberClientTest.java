@@ -13,11 +13,6 @@ public class ViberClientTest {
     private static final RequestBody EMPTY_REQUEST_BODY = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), "");
 
     @Test
-    public void testFetchUserAgentSanity() {
-        assertThat(client.fetchUserAgentVersion()).isNotEmpty();
-    }
-
-    @Test
     public void testCreateRequestAuthTokenExistsSanity() {
         Request request = client.createRequest(ViberClient.Endpoint.SEND_MESSAGE, EMPTY_REQUEST_BODY);
         assertThat(request.headers().get(ViberClient.VIBER_AUTH_TOKEN_HEADER)).isNotEmpty();
@@ -29,6 +24,6 @@ public class ViberClientTest {
         Request request = client.createRequest(ViberClient.Endpoint.SEND_MESSAGE, EMPTY_REQUEST_BODY);
         assertThat(request.headers().get(ViberClient.USER_AGENT_HEADER_FIELD)).isNotEmpty();
         assertThat(request.headers().get(ViberClient.USER_AGENT_HEADER_FIELD))
-                .isEqualTo(String.format("%s%s", ViberClient.USER_AGENT_HEADER_VALUE, client.fetchUserAgentVersion()));
+                .isEqualTo(String.format("%s%s", ViberClient.USER_AGENT_HEADER_VALUE, ViberClient.VIBER_LIBRARY_VERSION));
     }
 }

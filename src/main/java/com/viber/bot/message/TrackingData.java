@@ -24,11 +24,11 @@ import java.util.Map;
 public class TrackingData extends ForwardingMap<String, Object> {
     private final Map<String, Object> map;
 
-    TrackingData(final @Nullable Map<String, Object> delegate) {
+    public TrackingData(final @Nullable Map<String, Object> delegate) {
         this.map = Collections.unmodifiableMap(MoreObjects.firstNonNull(delegate, Collections.emptyMap()));
     }
 
-    TrackingData() {
+    public TrackingData() {
         this(null);
     }
 

@@ -24,11 +24,11 @@ import java.util.Map;
 public class MessageKeyboard extends ForwardingMap<String, Object> {
     private final Map<String, Object> map;
 
-    MessageKeyboard(final @Nullable Map<String, Object> delegate) {
+    public MessageKeyboard(final @Nullable Map<String, Object> delegate) {
         this.map = Collections.unmodifiableMap(MoreObjects.firstNonNull(delegate, Collections.emptyMap()));
     }
 
-    MessageKeyboard() {
+    public MessageKeyboard() {
         this(null);
     }
 

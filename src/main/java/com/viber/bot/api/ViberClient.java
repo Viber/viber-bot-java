@@ -33,6 +33,7 @@ class ViberClient {
     static final String VIBER_AUTH_TOKEN_HEADER = "X-Viber-Auth-Token";
     static final String USER_AGENT_HEADER_FIELD = "User-Agent";
     static final String USER_AGENT_HEADER_VALUE = "ViberBot-Java/";
+    static final String VIBER_LIBRARY_VERSION = "1.0.7";
 
     private static final String STATUS = "status";
     private static final int MAX_GET_ONLINE_IDS = 100;
@@ -51,7 +52,7 @@ class ViberClient {
     ViberClient(final @Nonnull String apiUrl, final @Nonnull String authToken) {
         this.apiUrl = checkNotEmpty(apiUrl);
         this.authToken = checkNotEmpty(authToken);
-        this.userAgent = String.format("%s%s", USER_AGENT_HEADER_VALUE, fetchUserAgentVersion());
+        this.userAgent = String.format("%s%s", USER_AGENT_HEADER_VALUE, VIBER_LIBRARY_VERSION);
     }
 
     ListenableFuture<ApiResponse> setWebhook(final @Nullable String url, final @Nonnull Collection<Event> events) {
@@ -82,18 +83,6 @@ class ViberClient {
         return sendRequest(Endpoint.GET_ONLINE_STATUS, new HashMap<String, Object>() {{
             put("ids", userIds);
         }});
-    }
-
-    @VisibleForTesting
-    String fetchUserAgentVersion() {
-        Properties properties = new Properties();
-        try {
-            properties.load(getClass().getClassLoader().getResourceAsStream("./version.properties"));
-            return properties.getProperty("version");
-        } catch (Exception e) {
-            logger.error("Could not fetch user agent", e);
-            return "unknown";
-        }
     }
 
     @VisibleForTesting
