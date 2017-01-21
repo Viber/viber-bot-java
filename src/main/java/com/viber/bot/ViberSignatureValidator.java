@@ -2,6 +2,7 @@ package com.viber.bot;
 
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
+import com.google.common.io.BaseEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,21 +19,9 @@ public class ViberSignatureValidator {
         this.secret = checkNotEmpty(secret);
     }
 
-    private static String encode(final @Nonnull String key, final @Nonnull String data) {
+    private String encode(final @Nonnull String key, final @Nonnull String data) {
         final byte[] bytes = Hashing.hmacSha256(key.getBytes()).hashString(data, Charsets.UTF_8).asBytes();
-        return toHex(bytes);
-    }
-
-    private static String toHex(final byte[] bytes) {
-        String hex = "";
-        for (final byte b : bytes) {
-            hex += toHex(b);
-        }
-        return hex;
-    }
-
-    private static String toHex(final byte b) {
-        return Integer.toString((b & 0xff) + 0x100, 16).substring(1);
+        return BaseEncoding.base16().lowerCase().encode(bytes);
     }
 
     public boolean isSignatureValid(final @Nonnull String signature, final @Nonnull String data) {
