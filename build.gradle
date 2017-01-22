@@ -19,11 +19,11 @@ apply plugin: 'signing'
 sourceCompatibility = projectSourceCompatibility
 
 project.ext {
-    slf4jVersion = '1.7.21'
-    jacksonVersion = '2.8.5'
+    slf4jVersion = '1.7.22'
+    jacksonVersion = '2.8.6'
     findbugsVersion = '3.0.1'
-    guavaVersion = '20.0'
-    okhttp3Version = '3.4.2'
+    guavaVersion = '21.0'
+    okhttp3Version = '3.5.0'
 }
 
 dependencies {
@@ -35,8 +35,8 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: guavaVersion
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'
-    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: '1.7.0'
 }
 

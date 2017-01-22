@@ -1,14 +1,18 @@
 package com.viber.bot.message;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import com.google.common.collect.ForwardingMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -38,12 +42,20 @@ public class MessageKeyboard extends ForwardingMap<String, Object> {
     }
 
     static class KeyboardDeserializer extends JsonDeserializer<MessageKeyboard> {
+        private static final Logger logger = LoggerFactory.getLogger(KeyboardDeserializer.class);
         private static final ObjectMapper objectMapper = new ObjectMapper();
         private static final String EMPTY_JSON_OBJECT = "{}";
 
         @Override
         public MessageKeyboard deserialize(final JsonParser p, final DeserializationContext ctxt) throws IOException, JsonProcessingException {
-            return new MessageKeyboard(objectMapper.readValue(MoreObjects.firstNonNull(Strings.emptyToNull(p.getValueAsString().trim()), EMPTY_JSON_OBJECT), Map.class));
+            Map<String, Object> messageKeyboard = null;
+            try {
+                messageKeyboard = objectMapper.readValue(MoreObjects.firstNonNull(
+                        Strings.emptyToNull(p.getValueAsString().trim()), EMPTY_JSON_OBJECT), Map.class);
+            } catch (JsonMappingException | JsonParseException exception) {
+                logger.warn("Could not deserialize message keyboard '{}'", p.getValueAsString().trim());
+            }
+            return new MessageKeyboard(messageKeyboard);
         }
     }
 }
