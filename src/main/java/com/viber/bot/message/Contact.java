@@ -22,7 +22,7 @@ public class Contact {
 	@JsonCreator
 	public Contact(final @JsonProperty("name") @Nonnull String contactName,
 			final @JsonProperty("phone_number") @Nonnull String contactPhoneNumber,
-			final @JsonProperty("phone_number") @Nullable String avatar) {
+			final @JsonProperty("avatar") @Nullable String avatar) {
 		this.name = checkNotEmpty(contactName);
 		this.phoneNumber = checkNotEmpty(contactPhoneNumber);
 		this.avatar = Strings.emptyToNull(avatar);
