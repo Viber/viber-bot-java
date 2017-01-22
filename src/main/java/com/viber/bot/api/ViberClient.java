@@ -33,7 +33,7 @@ class ViberClient {
     static final String VIBER_AUTH_TOKEN_HEADER = "X-Viber-Auth-Token";
     static final String USER_AGENT_HEADER_FIELD = "User-Agent";
     static final String USER_AGENT_HEADER_VALUE = "ViberBot-Java/";
-    static final String VIBER_LIBRARY_VERSION = "1.0.7";
+    static final String VIBER_LIBRARY_VERSION = "1.0.8";
 
     private static final String STATUS = "status";
     private static final int MAX_GET_ONLINE_IDS = 100;
