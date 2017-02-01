@@ -2,6 +2,8 @@ group 'com.viber'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
 
 sourceCompatibility = 1.8
 
@@ -10,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.viber', name: 'viber-bot', version: '1.0.8'
+    compile group: 'com.viber', name: 'viber-bot', version: '1.0.9'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.4.2.RELEASE'
     compile group: 'javax.inject', name: 'javax.inject', version: '1'
 }

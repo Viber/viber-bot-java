@@ -2,10 +2,12 @@ package com.viber.bot.event.incoming;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.Strings;
 import com.viber.bot.event.Event;
 import com.viber.bot.profile.UserProfile;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -15,25 +17,23 @@ import static com.viber.bot.Preconditions.checkNotEmpty;
 public class IncomingConversationStartedEvent extends IncomingEvent {
 
     private final UserProfile user;
-    private final String context;
     private final String type;
     private final long token;
 
+    @Nullable
+    private final String context;
+
     @JsonCreator
     IncomingConversationStartedEvent(final @JsonProperty("type") @Nonnull String type,
-                                     final @JsonProperty("context") @Nonnull String context,
                                      final @JsonProperty("user") @Nonnull UserProfile user,
+                                     final @JsonProperty("context") String context,
                                      final @JsonProperty("message_token") long token,
                                      final @JsonProperty("timestamp") long timestamp) {
         super(Event.CONVERSATION_STARTED, timestamp);
         this.user = checkNotNull(user);
         this.type = checkNotEmpty(type);
-        this.context = checkNotEmpty(context);
+        this.context = Strings.emptyToNull(context);
         this.token = token;
-    }
-
-    public String getContext() {
-        return context;
     }
 
     public String getType() {
@@ -46,6 +46,11 @@ public class IncomingConversationStartedEvent extends IncomingEvent {
 
     public UserProfile getUser() {
         return user;
+    }
+
+    @Nullable
+    public String getContext() {
+        return context;
     }
 
     @Override

@@ -3,6 +3,9 @@
 For full documentation on this SDK please [click here](https://github.com/Viber/viber-bot-java/blob/master/README.md)
 
 ## Using this sample
+* Building the project:
+	* For IntelliJ: `./gradlew idea`
+	* For Eclipse: `./gradlew eclipse`
 * Please edit [`application.yml`](src/main/resources/application.yml) with your SSL certificate and [auth token](https://developers.viber.com/customer/en/portal/articles/2554141-create-a-public-account?b_id=15145).
 * Run [SpringEchoBot.main()](src/main/java/com/viber/bot/sample/SpringEchoBot.java). 
 
