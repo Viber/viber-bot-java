@@ -65,7 +65,7 @@ public class SpringEchoBot implements ApplicationListener<ApplicationReadyEvent>
             throws ExecutionException, InterruptedException, IOException {
         Preconditions.checkState(signatureValidator.isSignatureValid(serverSideSignature, json), "invalid signature");
         @Nullable InputStream response = bot.incoming(Request.fromJsonString(json)).get();
-        return response != null ? CharStreams.toString(new InputStreamReader(response, Charsets.UTF_8)) : null;
+        return response != null ? CharStreams.toString(new InputStreamReader(response, Charsets.UTF_16)) : null;
     }
 
     @Configuration
