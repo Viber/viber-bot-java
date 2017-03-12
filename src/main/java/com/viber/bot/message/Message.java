@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Strings;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -18,6 +19,7 @@ import static com.viber.bot.Preconditions.checkNotEmpty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
+		@JsonSubTypes.Type(value = RichMediaMessage.class, name = "rich_media"),
         @JsonSubTypes.Type(value = TextMessage.class, name = "text"),
         @JsonSubTypes.Type(value = ContactMessage.class, name = "contact"),
         @JsonSubTypes.Type(value = FileMessage.class, name = "file"),
@@ -53,7 +55,7 @@ public abstract class Message { // todo: should be case classes when moving to s
     public TrackingData getTrackingData() {
         return trackingData;
     }
-
+    
     @JsonAnyGetter
     public Map<String, Object> getMapRepresentation() {
         return new HashMap<String, Object>() {{

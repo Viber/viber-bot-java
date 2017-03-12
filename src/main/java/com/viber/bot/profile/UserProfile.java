@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.viber.bot.Preconditions.checkNotEmpty;
 
 @Immutable
@@ -16,35 +17,49 @@ import static com.viber.bot.Preconditions.checkNotEmpty;
 public class UserProfile {
 
     private final String id;
+    private final String country;
+    private final String language;
+    private final Integer apiVersion;
+
+    @Nullable
     private final String name;
 
     @Nullable
     private final String avatar;
 
-    @Nullable
-    private final String country;
-
-    @Nullable
-    private final String language;
-
     @JsonCreator
     UserProfile(final @JsonProperty("id") @Nonnull String id,
-                final @JsonProperty("name") @Nonnull String name,
-                final @JsonProperty("avatar") @Nullable String avatar,
-                final @JsonProperty("country") @Nullable String country,
-                final @JsonProperty("language") @Nullable String language) {
+                final @JsonProperty("country") @Nonnull String country,
+                final @JsonProperty("language") @Nonnull String language,
+                final @JsonProperty("api_version") @Nonnull Integer apiVersion,
+                final @JsonProperty("name") @Nullable String name,
+                final @JsonProperty("avatar") @Nullable String avatar) {
 
         this.id = checkNotEmpty(id);
-        this.name = checkNotEmpty(name);
+        this.name = Strings.emptyToNull(name);
         this.avatar = Strings.emptyToNull(avatar);
-        this.country = Strings.emptyToNull(country);
-        this.language = Strings.emptyToNull(language);
+        this.country = checkNotEmpty(country);
+        this.language = checkNotEmpty(language);
+        this.apiVersion = checkNotNull(apiVersion);
     }
 
     public String getId() {
         return id;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public Integer getApiVersion() {
+        return apiVersion;
+    }
+
+    @Nullable
     public String getName() {
         return name;
     }
@@ -52,16 +67,6 @@ public class UserProfile {
     @Nullable
     public String getAvatar() {
         return avatar;
-    }
-
-    @Nullable
-    public String getCountry() {
-        return country;
-    }
-
-    @Nullable
-    public String getLanguage() {
-        return language;
     }
 
     @Override
@@ -75,6 +80,7 @@ public class UserProfile {
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (avatar != null ? !avatar.equals(that.avatar) : that.avatar != null) return false;
         if (country != null ? !country.equals(that.country) : that.country != null) return false;
+        if (apiVersion != null ? !apiVersion.equals(that.apiVersion) : that.apiVersion != null) return false;
         return language != null ? language.equals(that.language) : that.language == null;
     }
 
@@ -85,6 +91,7 @@ public class UserProfile {
         result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (language != null ? language.hashCode() : 0);
+        result = 31 * result + (apiVersion != null ? apiVersion.hashCode() : 0);
         return result;
     }
 }
