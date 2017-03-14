@@ -93,4 +93,4 @@ public void botTextRouterExample() {
 
 ## Community		
 
-Join the conversation on **[Gitter] (https://gitter.im/viber/bot-java)**.
+Join the conversation on **[Gitter](https://gitter.im/viber/bot-java)**.
