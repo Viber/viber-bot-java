@@ -41,9 +41,10 @@ All public APIs are documented with JavaDocs which can be found in the [GitHub r
 
 ### Sample projects
 
-We've created two sample projects to help you get started.
--- [Spring-Boot Sample](https://github.com/Viber/viber-bot-java/tree/master/spring-boot-sample) using [spring-boot-starter-web](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-starters/spring-boot-starter-web) package,
--- and [NanoHTTPd Sample](https://github.com/Viber/viber-bot-java/tree/master/nano-httpd-sample/) with a tiny embeddable http server, called [NanoHTTPd](https://github.com/NanoHttpd/nanohttpd).
+We've created two sample projects to help you get started:
+
+* [Spring-Boot Sample](https://github.com/Viber/viber-bot-java/tree/master/spring-boot-sample) using [spring-boot-starter-web](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-starters/spring-boot-starter-web) package.
+* [NanoHTTPd Sample](https://github.com/Viber/viber-bot-java/tree/master/nano-httpd-sample/) with a tiny embedded HTTP server, called [NanoHTTPd](https://github.com/NanoHttpd/nanohttpd).
 
 ### A simple overview
 
