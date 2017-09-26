@@ -1,4 +1,4 @@
-# Viber Bot API - Spring Boot
+# Viber Bot API - NanoHTTPd
 ## Documentation
 For full documentation on this SDK please [click here](https://github.com/Viber/viber-bot-java/blob/master/README.md)
 
