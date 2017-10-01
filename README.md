@@ -1,3 +1,7 @@
+# :warning: Deprecated :warning:
+
+This library is deprecated.  No new development will be taking place. We recommend that you use either [NodeJS](https://github.com/Viber/viber-bot-node), [Python](https://github.com/Viber/viber-bot-python) or [REST API](https://developers.viber.com/docs/api/rest-bot-api/).
+
 # Viber Java Bot API
 
 Use this library to develop a bot for Viber platform.
