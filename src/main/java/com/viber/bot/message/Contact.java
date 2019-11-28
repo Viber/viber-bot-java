@@ -13,6 +13,7 @@ import static com.viber.bot.Preconditions.checkNotEmpty;
 @Immutable
 public class Contact {
 
+	@Nullable
 	private final String name;
 	private final String phoneNumber;
 
@@ -23,11 +24,12 @@ public class Contact {
 	public Contact(final @JsonProperty("name") @Nonnull String contactName,
 			final @JsonProperty("phone_number") @Nonnull String contactPhoneNumber,
 			final @JsonProperty("avatar") @Nullable String avatar) {
-		this.name = checkNotEmpty(contactName);
+		this.name = Strings.emptyToNull(contactName);
 		this.phoneNumber = checkNotEmpty(contactPhoneNumber);
 		this.avatar = Strings.emptyToNull(avatar);
 	}
 
+	@Nullable
 	public String getName() {
 		return name;
 	}
